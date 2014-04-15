@@ -4,6 +4,7 @@ var deadZone = 0.15;
 var speed = 5;
 
 
+
 function Start () {
 	cameraController = GameObject.Find("cameraController").transform;
 }
