@@ -12,6 +12,8 @@ function Start () {
 
 function Update () {
 
+
+
 // move viewpoint around when player pushes on the edge of the screen
 	var mousePosX = Input.mousePosition.x;
 	var mousePosY = Input.mousePosition.y;
@@ -39,23 +41,26 @@ function Update () {
 	
 	var hit : RaycastHit;
     if (Physics.Raycast (ray, hit,100.0)) {
-    	Debug.DrawLine (ray.origin, hit.point);
+    	//Debug.DrawLine (ray.origin, hit.point);
     	if (hit.transform.gameObject.tag == ("totemWarrior") && Input.GetMouseButtonDown(0)){
-        	print ("You clicked on the totem");
+			if (Input.GetKey(KeyCode.LeftShift) != true) {
+				unselectTotems(); 
+			}		
         	hit.collider.gameObject.GetComponent(totem_Script).selected = true;
 		}
-		if (hit.transform.gameObject.tag == ("ground") && Input.GetMouseButtonDown(0)){ //unselects all the totems if the player clicks on the ground
-			print ("You clicked on the ground");
-			var totems = GameObject.FindGameObjectsWithTag("totemWarrior");
-				for (var i : int = 0; i < totems.length; i++){
-					totems[i].GetComponent(totem_Script).selected = false;
-				}
+		if (hit.transform.gameObject.tag == ("ground") && Input.GetMouseButtonDown(0)){  //unselects all the totems if the player clicks on the ground
+			unselectTotems();
+				
 		}
-		if (Input.GetMouseButtonDown(1)){ //right mouse button loads coordinates into game manager to be used by any selected totems
-			Debug.Log(hit.point);
-			newPoint = hit.point;
-		}
+
 		
 	}
 	
+}
+
+function unselectTotems() {
+	var totems = GameObject.FindGameObjectsWithTag("totemWarrior");
+	for (var i : int = 0; i < totems.length; i++){
+		totems[i].GetComponent(totem_Script).selected = false;
+	}
 }
