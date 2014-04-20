@@ -1,5 +1,5 @@
 ﻿#pragma strict
-private var cameraController : Transform;
+var cameraController : Transform;
 var deadZone = 0.15;
 var speed = 5;
 
@@ -20,6 +20,7 @@ if (cameraController != null){
 	else {
 		transform.position = Vector3(0,-20, 0);
 	}
+
 	
 	
 }

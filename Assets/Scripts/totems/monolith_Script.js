@@ -1,15 +1,27 @@
 ﻿#pragma strict
-var selected : boolean;
-var cameraController : cameraController_Script;
-var moving : boolean;
-var destination : Vector3;
+@HideInInspector var selected : boolean;
+@HideInInspector var cameraController : cameraController_Script;
+@HideInInspector var moving : boolean;
+@HideInInspector var destination : Vector3;
 
-var deadZone = 0.15;
-var speed = 4;
+@HideInInspector var deadZone = 0.15;
+
+//var monolithClasses = new Array("soldier",  "heavy", "idol", "mender", "caterer", "blocker");
+var monolithClasses : int;
+var monolithClass : int;
+
+var colour : Color;
+var health : int;
+var attack : int;
+var speed : int = 4;
+
 
 
 
 function Start () {
+
+	//monolithClass = monolithClasses[Random.Range(0,5)];
+	monolithClass = Random.Range(0,5);
 	selected = false;
 	moving = false;
 	cameraController = GameObject.FindGameObjectWithTag("CameraController").GetComponent(cameraController_Script);
@@ -46,7 +58,7 @@ function Update () {
 		
 	}
 	if (!selected) {
-		renderer.material.color = Color(0.3,0.8,1.0,0);
+		renderer.material.color = colour;
 	}
 	
 	

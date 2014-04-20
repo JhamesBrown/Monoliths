@@ -42,14 +42,14 @@ function Update () {
 	var hit : RaycastHit;
     if (Physics.Raycast (ray, hit,100.0)) {
     	//Debug.DrawLine (ray.origin, hit.point);
-    	if (hit.transform.gameObject.tag == ("totemWarrior") && Input.GetMouseButtonDown(0)){
+    	if (hit.transform.gameObject.tag == ("Monolith") && Input.GetMouseButtonDown(0)){
 			if (Input.GetKey(KeyCode.LeftShift) != true) {
-				unselectTotems(); 
+				unselectMonoliths(); 
 			}		
-        	hit.collider.gameObject.GetComponent(totem_Script).selected = true;
+        	hit.collider.gameObject.GetComponent(monolith_Script).selected = true;
 		}
-		if (hit.transform.gameObject.tag == ("ground") && Input.GetMouseButtonDown(0)){  //unselects all the totems if the player clicks on the ground
-			unselectTotems();
+		if (hit.transform.gameObject.tag == ("ground") && Input.GetMouseButtonDown(0)){  //unselects all the monoliths if the player clicks on the ground
+			unselectMonoliths();
 				
 		}
 
@@ -58,9 +58,9 @@ function Update () {
 	
 }
 
-function unselectTotems() {
-	var totems = GameObject.FindGameObjectsWithTag("totemWarrior");
-	for (var i : int = 0; i < totems.length; i++){
-		totems[i].GetComponent(totem_Script).selected = false;
+function unselectMonoliths() {
+	var monoliths = GameObject.FindGameObjectsWithTag("Monolith");
+	for (var i : int = 0; i < monoliths.length; i++){
+		monoliths[i].GetComponent(monolith_Script).selected = false;
 	}
 }
