@@ -2,9 +2,9 @@
 @HideInInspector var selected : boolean;
 @HideInInspector var cameraController : cameraController_Script;
 @HideInInspector var moving : boolean;
-@HideInInspector var destination : Vector3;
+ var destination : Vector3;
 
-@HideInInspector var deadZone = 0.15;
+ var deadZone = 0.5;
 
 //var monolithClasses = new Array("soldier",  "heavy", "idol", "mender", "caterer", "blocker");
 var monolithClasses : int;
