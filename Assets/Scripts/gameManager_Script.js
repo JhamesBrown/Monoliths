@@ -4,6 +4,9 @@ var monolithClass : int;
 var spawnLoaded : boolean;
 
 var spawnPoint : Vector3;
+var worship : int = 1000;
+var worshipCost : int;
+
 @HideInInspector var cameraController : cameraController_Script;
 
 function Start () {
@@ -20,47 +23,62 @@ function Update () {
 	    	if (Input.GetMouseButtonDown(0)){ 
 				spawnPoint = hit.point + Vector3(0.0, 0.9, 0.0);
 				Instantiate(monolith, spawnPoint, Quaternion.Euler(Vector3(270,0,0)));
-				spawnLoaded = false;				
+				worship -= worshipCost;
+				if (!Input.GetKey(KeyCode.LeftShift)) {
+					spawnLoaded = false;
+				} 
+								
 			}			
 		}
 	}
 }
 
-function OnGUI() {
+function OnGUI() { // unit build menu & worship(resource) counter
+
+	//** this is a terrible way to code this build menu, but i'm not totally sure of the best way to fix it, I assume a for script could build this menu pretty well
+
 	if (GUI.Button(Rect (Screen.width-100,350,100,25), "soldier")){
 		monolithClass = 0;
 		spawnLoaded = true;
 		cameraController.unselectMonoliths();
+		worshipCost = 20; //**worship cost should probably come from some other source like a build properties script
 	 	return;
 	}
 	if (GUI.Button(Rect (Screen.width-100,375,100,25), "heavy")){
 		monolithClass = 1;
 		spawnLoaded = true;
 		cameraController.unselectMonoliths();
+		worshipCost = 20;
 		return;
 	}
 	if (GUI.Button(Rect (Screen.width-100,400,100,25), "idol")){
 		monolithClass = 2;
 		spawnLoaded = true;
 		cameraController.unselectMonoliths();
+		worshipCost = 20;
 		return;
 	}
 	if (GUI.Button(Rect (Screen.width-100,425,100,25), "mender")){
 		monolithClass = 3;
 		spawnLoaded = true;
 		cameraController.unselectMonoliths();
+		worshipCost = 20;
 		return;
 	}
 	if (GUI.Button(Rect (Screen.width-100,450,100,25), "caterer")){
 		monolithClass = 4;
 		spawnLoaded = true;
 		cameraController.unselectMonoliths();
+		worshipCost = 20;
 		return;
 	}
 	if (GUI.Button(Rect (Screen.width-100,475,100,25), "blocker")){
 		monolithClass = 5;
 		spawnLoaded = true;
 		cameraController.unselectMonoliths();
+		worshipCost = 10;
 		return;
 	}
+	
+	GUI.Box(Rect(Screen.width - 100, 50, 120,50),""+ worship); //worship(resource) counter
 }
