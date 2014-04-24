@@ -4,7 +4,7 @@ var monolithClass : int;
 var spawnLoaded : boolean;
 
 var spawnPoint : Vector3;
-var worship : int = 1000;
+var worship : int = 5000;
 var worshipCost : int;
 
 @HideInInspector var cameraController : cameraController_Script;
@@ -22,7 +22,7 @@ function Update () {
 	    if (Physics.Raycast (ray, hit,100.0)) {
 	    	if (Input.GetMouseButtonDown(0)){ 
 				spawnPoint = hit.point + Vector3(0.0, 0.9, 0.0);
-				Instantiate(monolith, spawnPoint, Quaternion.Euler(Vector3(270,0,0)));
+				Instantiate(monolith, spawnPoint, Quaternion.Euler(Vector3(270,180,0)));
 				worship -= worshipCost;
 				if (!Input.GetKey(KeyCode.LeftShift)) {
 					spawnLoaded = false;

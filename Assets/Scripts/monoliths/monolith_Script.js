@@ -17,6 +17,8 @@ var health : int;
 var attack : int;
 var speed : int = 4;
 
+var selectedIndicator_Prefab : GameObject;
+var selectedIndicator :GameObject;
 
 
 
@@ -32,9 +34,13 @@ function Start () {
 	gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent(gameManager_Script);
 	monolithClass = gameManager.monolithClass;
 	cameraController.unselectMonoliths();
+	// Set main color to colour specified by classProperties_Script
+	
 }
 
 function Update () {
+	renderer.material.color = colour;
+
 	if (moving == true && gameManager.worship >= 1) {
 	//monolith will move and play movement sound if the player has given it a destination and has worship(resource) available
 	
@@ -42,7 +48,7 @@ function Update () {
 			audio.Play();
 		}
 		var step = speed * Time.deltaTime;
-		transform.LookAt(destination + Vector3(0.0, 0.1, 0.0));
+		transform.LookAt(destination + Vector3(0.0, 0.08, 0.0));
 		transform.position = Vector3.MoveTowards(transform.position, destination, step);
 		gameManager.worship --;
 		if (Vector3.Distance(transform.position, destination) < deadZone) { // detects when player has reached destination and stops movement & sound
@@ -56,8 +62,11 @@ function Update () {
 	}
 	
 	if (selected) {
-		renderer.material.color = Color(1.0,0,0,0); //**changes colour back to red to indicate 'selected' this will be changed to a more visually pragmatic technique
-		
+		// selection indicator above the monoliths transform
+		if (selectedIndicator == null) {
+			selectedIndicator = Instantiate(selectedIndicator_Prefab, transform.position + Vector3(0,3,0), Quaternion.identity);
+			selectedIndicator.transform.parent = transform;
+		}
 		var ray = Camera.main.ScreenPointToRay(Input.mousePosition); // makes a ray from player view into screen area
 		var hit : RaycastHit; 
 	    if (Physics.Raycast (ray, hit,100.0)) {
@@ -69,8 +78,10 @@ function Update () {
 			}
 		}
 	}
-	if (!selected) { //**changes colour back from red to indicate 'not selected' this will be changed to a more visually pragmatic technique
-		renderer.material.color = colour;
+	if (!selected) { //removes selectedIndicator from above the monoliths transform
+		if (selectedIndicator != null){
+			Destroy(selectedIndicator);
+		}
 	}
 }
 

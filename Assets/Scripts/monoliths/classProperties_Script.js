@@ -10,6 +10,9 @@ var health : int;
 var attack : int;
 var speed : int;
 
+var aura_Prefab : GameObject;
+var aura : GameObject;
+
 
 function Start () {
 	
@@ -39,7 +42,13 @@ function Update () {
 		colour = Color(141.0/255.0, 37.0/255.0, 147.0/255.0);
 		health = 100;
 		attack = 10;
-		speed = 50;
+		speed = 20;
+				
+		
+		if (aura == null) {
+			aura = Instantiate(aura_Prefab, transform.position + Vector3(0,0.4,0), Quaternion.identity);
+			aura.transform.parent = transform;
+		}
 	}
 	
 	//"mender"
