@@ -10,8 +10,15 @@ var health : int;
 var attack : int;
 var speed : int;
 
+
+var soldier : int =0;
+
 var aura_Prefab : GameObject;
 var aura : GameObject;
+
+var bread_Prefab : Transform;
+var breadSpawned : boolean;
+
 
 
 function Start () {
@@ -22,7 +29,7 @@ function Start () {
 function Update () {
 
 	//"soldier"
-	if (monolithSelfScript.monolithClass == 0) {
+	if (monolithSelfScript.monolithClass == soldier) {
 		colour = Color(75.0/255.0, 200.0/255.0, 255.0/255.0);
 		health = 100;
 		attack = 10;
@@ -65,6 +72,13 @@ function Update () {
 		health = 100;
 		attack = 10;
 		speed = 5;
+		if (Input.GetKeyDown("space")){
+			breadSpawned = false;
+		}
+		if (!breadSpawned) {
+			spawnBread(20);
+			
+		}
 	}
 	
 	//"blocker"	
@@ -82,4 +96,11 @@ function Update () {
 	monolithSelfScript.attack = attack;
 	monolithSelfScript.speed = speed;
 
+}
+
+function spawnBread(breadSpawnAmount : int) {
+	for (var i = 0; i < breadSpawnAmount; i++){
+			Instantiate(bread_Prefab, transform.position + Vector3(0,0.6,0), Quaternion.identity);
+		}
+	breadSpawned = true;	
 }
