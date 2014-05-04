@@ -76,7 +76,7 @@ function Update () {
 			breadSpawned = false;
 		}
 		if (!breadSpawned) {
-			spawnBread(20);
+			spawnBread(5);
 			
 		}
 	}
@@ -100,7 +100,7 @@ function Update () {
 
 function spawnBread(breadSpawnAmount : int) {
 	for (var i = 0; i < breadSpawnAmount; i++){
-			Instantiate(bread_Prefab, transform.position + Vector3(0,0.6,0), Quaternion.identity);
+			Instantiate(bread_Prefab, transform.position + Vector3(0,0.7,0.0), Quaternion.identity);
 		}
 	breadSpawned = true;	
 }
