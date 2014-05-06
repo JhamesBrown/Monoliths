@@ -9,9 +9,10 @@ var colour: Color;
 var health : int;
 var attack : int;
 var speed : int;
+var range : int;
 
 
-var soldier : int =0;
+var soldier : int = 0;
 
 var aura_Prefab : GameObject;
 var aura : GameObject;
@@ -19,6 +20,8 @@ var aura : GameObject;
 var bread_Prefab : Transform;
 var breadSpawned : boolean;
 
+
+var beastScript : beast_Script;
 
 
 function Start () {
@@ -34,6 +37,12 @@ function Update () {
 		health = 100;
 		attack = 10;
 		speed = 20;
+		range = 10;
+		
+		
+			
+		soldierAttack(transform.position, range);
+		
 	}
 	
 	//"heavy"
@@ -103,4 +112,22 @@ function spawnBread(breadSpawnAmount : int) {
 			Instantiate(bread_Prefab, transform.position + Vector3(0,0.7,0.0), Quaternion.identity);
 		}
 	breadSpawned = true;	
+}
+
+function soldierAttack(center : Vector3 , range : float) {
+		
+		var hitColliders = Physics.OverlapSphere(center, range );
+		
+		for (var i = 0; i < hitColliders.Length; i++) {
+			if (hitColliders[i].tag == "Beast") {
+			
+				beastScript = hitColliders[i].GetComponent(beast_Script);
+				beastScript.hit = true;
+				beastScript.health -= 1;
+			}
+			
+		}
+		yield WaitForSeconds (1.0);
+		
+		
 }
